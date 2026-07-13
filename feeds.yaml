@@ -1,0 +1,44 @@
+# Alexandra's feeds — innovation, design thinking, and cool new things.
+# Grouped into three lenses: Design, Technology, Ideas.
+# If a URL 404s the script just skips it silently; swap in an alternative
+# (try /feed, /rss, /feed/, or search "<site> rss") and it'll pick it up.
+
+Design:
+  - name: Dezeen
+    url: "https://www.dezeen.com/feed/"
+  - name: Design Milk
+    url: "https://design-milk.com/feed/"
+  - name: Yanko Design
+    url: "https://www.yankodesign.com/feed/"
+  - name: Core77
+    url: "https://www.core77.com/rss.xml"
+  - name: Nielsen Norman Group
+    url: "https://www.nngroup.com/feed/rss/"
+  - name: Colossal
+    url: "https://www.thisiscolossal.com/feed/"
+
+Technology:
+  - name: The Verge
+    url: "https://www.theverge.com/rss/index.xml"
+  - name: New Atlas
+    url: "https://newatlas.com/index.rss"
+  - name: Product Hunt
+    url: "https://www.producthunt.com/feed"
+  - name: Cool Hunting
+    url: "https://coolhunting.com/feed/"
+  - name: IEEE Spectrum
+    url: "https://spectrum.ieee.org/feeds/feed.rss"
+
+Ideas:
+  - name: MIT Technology Review
+    url: "https://www.technologyreview.com/feed/"
+  - name: Fast Company
+    url: "https://www.fastcompany.com/rss"
+  - name: Wired
+    url: "https://www.wired.com/feed/rss"
+  - name: TED Ideas
+    url: "https://ideas.ted.com/feed/"
+  - name: Singularity Hub
+    url: "https://singularityhub.com/feed/"
+  - name: Aeon
+    url: "https://aeon.co/feed.rss"

@@ -8,7 +8,7 @@ TOPIC_ORDER = ["Design", "Technology", "Ideas"]
 TOP_N = 5
 ISSUES_DIR = pathlib.Path("issues")   # committed to the repo (persists)
 SITE_DIR = pathlib.Path("_site")      # rebuilt every run, deployed to Pages
-NAMEPLATE = "Alexandra\\u2019s Daily <em>Briefing</em>"
+NAMEPLATE = "Alexandra's <em>Innovation Briefing</em>"
 feedparser.USER_AGENT = "news-digest/1.0 (+github actions)"
 
 # ---------- feed parsing ----------

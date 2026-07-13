@@ -302,7 +302,7 @@ def render_issue(data, all_dates, idx):
     banner = "" if ai_on else ('<div class="banner">AI curation off \u2014 raw feeds for this day.</div>')
 
     home = "index.html" if is_latest else f"{date}.html"
-    return (HEAD.format(title=f"Daniel\u2019s Daily Briefing \u2014 {d:%d %b %Y}") +
+    return (HEAD.format(title=f"Alexandra's Innovation Briefing \u2014 {d:%d %b %Y}") +
             f'<header class="masthead">'
             f'<p class="kicker">Private edition \u00b7 curated for Alexandra</p>'
             f'<h1 class="nameplate"><a href="{home}">{NAMEPLATE}</a></h1>'

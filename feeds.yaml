@@ -16,6 +16,14 @@ Design:
     url: "https://www.nngroup.com/feed/rss/"
   - name: Colossal
     url: "https://www.thisiscolossal.com/feed/"
+  - name: IDEO
+    url: "https://medium.com/feed/ideo-stories"
+  - name: frog
+    url: "https://medium.com/feed/frog-voices"
+  - name: Fast Company Design
+    url: "https://www.fastcompany.com/co-design/rss"
+  - name: Smashing Magazine
+    url: "https://www.smashingmagazine.com/feed/"
 
 Technology:
   - name: The Verge
@@ -42,3 +50,9 @@ Ideas:
     url: "https://singularityhub.com/feed/"
   - name: Aeon
     url: "https://aeon.co/feed.rss"
+  - name: IDEO CoLab
+    url: "https://medium.com/feed/ideo-colab"
+  - name: Stanford d.school
+    url: "https://medium.com/feed/stanford-d-school"
+  - name: UX Collective
+    url: "https://uxdesign.cc/feed"

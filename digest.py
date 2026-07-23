@@ -319,7 +319,7 @@ def render_issue(data, all_dates, idx):
     banner = "" if ai_on else ('<div class="banner">AI curation off \u2014 raw feeds for this day.</div>')
 
     home = "index.html" if is_latest else f"{date}.html"
-    return (HEAD.format(title=f"Daniel\u2019s Daily Briefing \u2014 {d:%d %b %Y}") +
+    return (HEAD.format(title=f"AlexandraA\u2019s Daily Briefing \u2014 {d:%d %b %Y}") +
             f'<header class="masthead">'
             f'<p class="kicker">Private edition \u00b7 curated for Alexandra</p>'
             f'<h1 class="nameplate"><a href="{home}">{NAMEPLATE}</a></h1>'
@@ -349,7 +349,7 @@ def render_archive(index):
         out.append('</div>')
         blocks.append("".join(out))
     body = "".join(blocks) or '<p class="empty">No issues yet.</p>'
-    return (HEAD.format(title="Daniel\u2019s Daily Briefing \u2014 Archive") +
+    return (HEAD.format(title="AlexandraA\u2019s Daily Briefing \u2014 Archive") +
             f'<header class="masthead">'
             f'<p class="kicker">Private edition \u00b7 curated for Alexandra</p>'
             f'<h1 class="nameplate"><a href="index.html">{NAMEPLATE}</a></h1>'
@@ -376,7 +376,7 @@ def build_site():
         (SITE_DIR / "index.html").write_text(render_issue(index[0], all_dates, 0), encoding="utf-8")
     else:
         (SITE_DIR / "index.html").write_text(
-            HEAD.format(title="Daniel\u2019s Daily Briefing") + '<p class="empty">No issues yet.</p></div></body></html>',
+            HEAD.format(title="Alexandra\u2019s Daily Briefing") + '<p class="empty">No issues yet.</p></div></body></html>',
             encoding="utf-8")
     (SITE_DIR / "archive.html").write_text(render_archive(index), encoding="utf-8")
     print(f"Built site: {len(index)} issues.")

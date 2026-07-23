@@ -10,7 +10,7 @@ TOP_N = 5
 PRIORITY_SOURCES = {"IDEO", "frog", "IDEO CoLab", "Stanford d.school"}
 ISSUES_DIR = pathlib.Path("issues")   # committed to the repo (persists)
 SITE_DIR = pathlib.Path("_site")      # rebuilt every run, deployed to Pages
-NAMEPLATE = "Alexandra\\u2019s Daily <em>Briefing</em>"
+NAMEPLATE = "Alexandra's Daily <em>Briefing</em>"
 feedparser.USER_AGENT = "news-digest/1.0 (+github actions)"
 
 # ---------- feed parsing ----------

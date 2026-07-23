@@ -1,5 +1,5 @@
-# Alexandra's feeds — innovation, design thinking, and cool new things.
-# Grouped into three lenses: Design, Technology, Ideas.
+# Alexandra's feeds — innovation, design thinking, cool new things, and good news.
+# Four lenses: Design, Technology, Ideas, Good news.
 # If a URL 404s the script just skips it silently; swap in an alternative
 # (try /feed, /rss, /feed/, or search "<site> rss") and it'll pick it up.
 
@@ -26,8 +26,6 @@ Design:
     url: "https://www.smashingmagazine.com/feed/"
 
 Technology:
-  - name: The Verge
-    url: "https://www.theverge.com/rss/index.xml"
   - name: New Atlas
     url: "https://newatlas.com/index.rss"
   - name: Product Hunt
@@ -36,6 +34,8 @@ Technology:
     url: "https://coolhunting.com/feed/"
   - name: IEEE Spectrum
     url: "https://spectrum.ieee.org/feeds/feed.rss"
+  - name: The Verge
+    url: "https://www.theverge.com/rss/index.xml"
 
 Ideas:
   - name: MIT Technology Review
@@ -56,3 +56,17 @@ Ideas:
     url: "https://medium.com/feed/stanford-d-school"
   - name: UX Collective
     url: "https://uxdesign.cc/feed"
+
+Good news:
+  - name: Positive News
+    url: "https://www.positive.news/feed/"
+  - name: Good News Network
+    url: "https://www.goodnewsnetwork.org/feed/"
+  - name: Reasons to be Cheerful
+    url: "https://reasonstobecheerful.world/feed/"
+  - name: Optimist Daily
+    url: "https://www.optimistdaily.com/feed/"
+  - name: Happy Eco News
+    url: "https://happyeconews.com/feed/"
+  - name: Our World in Data
+    url: "https://ourworldindata.org/atom.xml"

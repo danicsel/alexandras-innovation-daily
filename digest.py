@@ -2,13 +2,15 @@ import os, json, re, datetime as dt, pathlib, html, traceback, glob
 import yaml, feedparser
 from anthropic import Anthropic
 
-INTERESTS = "Innovation broadly: design and design thinking, product and industrial design, UX, architecture, new gadgets and cool products, breakthrough science, and big ideas"
+INTERESTS = "Innovation broadly: design and design thinking, product and industrial design, UX, architecture, new gadgets and cool products, breakthrough science, and big ideas. Also a daily dose of genuinely uplifting good news."
 LOOKBACK_H = 26
-TOPIC_ORDER = ["Design", "Technology", "Ideas"]
+TOPIC_ORDER = ["Good news", "Ideas", "Technology", "Design"]
 TOP_N = 5
+# Sources to favour: they post rarely, so surface them when they do.
+PRIORITY_SOURCES = {"IDEO", "frog", "IDEO CoLab", "Stanford d.school"}
 ISSUES_DIR = pathlib.Path("issues")   # committed to the repo (persists)
 SITE_DIR = pathlib.Path("_site")      # rebuilt every run, deployed to Pages
-NAMEPLATE = "Alexandra's <em>Innovation Briefing</em>"
+NAMEPLATE = "Alexandra\\u2019s Daily <em>Briefing</em>"
 feedparser.USER_AGENT = "news-digest/1.0 (+github actions)"
 
 # ---------- feed parsing ----------
@@ -86,9 +88,16 @@ def triage(items):
             "Tasks:\n"
             f"1. For each category ({cats}) pick the 3-5 most important, "
             "genuinely relevant, non-duplicate stories.\n"
+            "   Exception: for the 'Good news' category, pick the 3-5 most genuinely "
+            "uplifting, heartwarming or hopeful stories instead — real progress, kindness, "
+            "recovery, breakthroughs. Skip anything grim, and skip empty feel-good filler.\n"
+            "   Preference: design studios and institutions (IDEO, frog, IDEO CoLab, "
+            "Stanford d.school) publish rarely and are highly valued — if any of their "
+            "pieces appear, strongly prefer including them and score them generously.\n"
             "2. Tag each with a short category pill (e.g. Design, UX, Product, Gadget, "
-            "AI, Science, Architecture, Sustainability, Startup, Materials).\n"
-            "3. Give each a one-sentence 'why it matters' line.\n"
+            "AI, Science, Architecture, Sustainability, Startup, Materials, Nature, Community).\n"
+            "3. Give each a one-sentence 'why it matters' line. For good news, make this "
+            "warm and human rather than analytical.\n"
             "4. Write a 1-2 sentence summary of the day for each category.\n\n"
             "Return ONLY this JSON, no prose or code fences:\n"
             '{"summaries":{' + summ_shape + '},'
@@ -108,7 +117,10 @@ def triage(items):
             it["score"] = p.get("score", 0); it["line"] = p.get("line", "")
             it["pill"] = p.get("pill", "")
             out.append(it); picked_idx.add(i)
-        out.sort(key=lambda x: -x.get("score", 0))
+        for it in out:
+            if it["source"] in PRIORITY_SOURCES:
+                it["score"] = min(5, it.get("score", 0) + 2)
+        out.sort(key=lambda x: (-x.get("score", 0), x["source"] not in PRIORITY_SOURCES))
         seen = {x["link"] for x in out}
         others = []
         for i, it in enumerate(items):
@@ -133,7 +145,7 @@ HEAD = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{{--ink:#1b1a17;--paper:#f0eee7;--petrol:#0e4d52;--brass:#9c7b34;--muted:#6c685e;--line:#dcd8ce}}
+:root{{--ink:#1b1a17;--paper:#f0eee7;--petrol:#0e4d52;--brass:#9c7b34;--muted:#6c685e;--line:#dcd8ce;--gold:#9a6a2a}}
 *{{box-sizing:border-box}}html{{-webkit-text-size-adjust:100%}}
 body{{margin:0;background:var(--paper);color:var(--ink);font-family:"Newsreader",Georgia,serif;
  font-optical-sizing:auto;line-height:1.5;
@@ -202,6 +214,11 @@ a:focus-visible{{outline:2px solid var(--petrol);outline-offset:3px;border-radiu
 .arc-teaser{{font-size:17px;font-weight:500;line-height:1.25}}
 .arc-count{{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--brass);white-space:nowrap}}
 .empty{{color:var(--muted)}}
+/* good news gets a warmer accent */
+.s-good-news .eyebrow .topic{{color:var(--gold)}}
+.s-good-news .pill{{color:var(--gold);background:rgba(154,106,42,.12)}}
+.s-good-news .thumb.ph{{background:var(--gold)}}
+.s-good-news h3 a:hover{{color:var(--gold)}}
 /* other news */
 .other .eyebrow .topic{{color:var(--brass)}}
 .otherlist{{columns:2;column-gap:44px;margin-top:2px}}
@@ -266,7 +283,7 @@ def render_issue(data, all_dates, idx):
         rest = "".join(_card(x) for x in xs[1:])
         rest_html = f'<div class="grid">{rest}</div>' if rest else ""
         sections.append(
-            f'<section class="section"><div class="eyebrow">'
+            f'<section class="section s-{re.sub(r"[^a-z0-9]+", "-", topic.lower())}"><div class="eyebrow">'
             f'<span class="topic">{html.escape(topic)}</span>'
             f'<span class="rule"></span><span class="count">{len(xs):02d}</span></div>'
             f'{summ_html}{lead}{rest_html}</section>')
@@ -302,7 +319,7 @@ def render_issue(data, all_dates, idx):
     banner = "" if ai_on else ('<div class="banner">AI curation off \u2014 raw feeds for this day.</div>')
 
     home = "index.html" if is_latest else f"{date}.html"
-    return (HEAD.format(title=f"Alexandra's Innovation Briefing \u2014 {d:%d %b %Y}") +
+    return (HEAD.format(title=f"Daniel\u2019s Daily Briefing \u2014 {d:%d %b %Y}") +
             f'<header class="masthead">'
             f'<p class="kicker">Private edition \u00b7 curated for Alexandra</p>'
             f'<h1 class="nameplate"><a href="{home}">{NAMEPLATE}</a></h1>'
